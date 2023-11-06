@@ -2,9 +2,9 @@ import os
 import shutil
 
 def pause():
-	input("Naciśnij ENTER")
+	input("Press ENTER")
 
-print('Tworzenie listy.')
+print('Creating a list.')
 
 index = 'input/index.json'
 objects = 'input/objects'
@@ -14,9 +14,9 @@ with open(index, 'r') as file:
 
 
 
-#    --- ROBIENIE LISTY PLIKÓW ---    #
+#    --- CREATING A LIST OF FILES ---    #
 
-# Usuwanie zbęnych rzeczy #1
+# Removing meaningless stuff
 content = content.replace('": {"hash": "', '@')
 content = content.replace('", "size": ', '@')
 content = content.replace('"', '')
@@ -25,32 +25,32 @@ content = content.replace("{", '')
 content = content.replace("objects", '')
 content = content.replace(": ", '')
 
-# Robi pierwszą listę
+# Creating the first list
 content = content.split('}, ')
 
 
 for a in range(len(content)):
-	# dzeli na mniejsze listy
+	# Dividing into smaller lists
 	content[a] = content[a].split('@')
 	del content[a][2]
 
-	# odaje folder w którym znajduje się plik
+	# Creates a path of directory with file
 	content[a][1] = str(f'input/objects/{content[a][1][0:2]}/{content[a][1]}')
 
-	# dodaje nazwę pliku na początek
+	# Adds the name of a file at the beginnging
 	content[a].insert(0, (content[a][0].split('/'))[-1])
 	content[a][0] = content[a][1].replace(content[a][0], '')
 
-	# w sumie nie pamiętam bo mocno zmieniałem, sorry XD
+	# I do not quite remember what this does, sorry XD
 	content[a][1] = str('output/' + content[a][1])
 	content[a][0] = str('output/' + content[a][0])
 #print(content)
 
 
 
-#    --- KOPIOWANIE PLIKÓW I ZMIANA NAZW ---    #
+#    --- COPYING FILES AND CHANGING NAMES ---    #
 
-print('Kopiowanie')
+print('Copying')
 
 os.makedirs('output/')
 for a in range(len(content)):
@@ -61,4 +61,4 @@ for a in range(len(content)):
 		os.makedirs(content[a][0])
 		shutil.copyfile(content[a][2], content[a][1])
 
-input('Gotowe.')
+input('DONE.')
